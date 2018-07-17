@@ -1,5 +1,6 @@
 #include "imp_common.h"
 #include "imp_wifi.h"
+#include "imp_serial.h"
 #include "spiffs_utils.h"
 
 void setup(void) {
