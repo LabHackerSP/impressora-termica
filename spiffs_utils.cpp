@@ -11,8 +11,8 @@ String loadDefault(const char* filename) {
 
 String loadDefault(const char* filename, String def) {
   File f;
-  if(SPIFFS.exists(filename)) {
-    f = SPIFFS.open(filename, "r");
+  f = SPIFFS.open(filename, "r");
+  if(f) {
     String out = f.readString();
     f.close();
     return out;
