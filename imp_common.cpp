@@ -6,7 +6,9 @@ void commonSetup() {
   pinMode(BUTTON, INPUT_PULLUP);
   impSerial.begin(19200);
   // printer init
-  impSerial.printf("\x1B\x40");
+  delay(100);
+  impSerial.write(0x1B);
+  impSerial.write(0x40);
 }
 
 void serialPrint(char* string) {
@@ -14,7 +16,8 @@ void serialPrint(char* string) {
 }
 
 void serialMode(byte printMode) {
-  impSerial.printf("\x1B\x21");
-  impSerial.print(printMode);
+  impSerial.write(0x1B);
+  impSerial.write(0x21);
+  impSerial.write(printMode);
 }
 

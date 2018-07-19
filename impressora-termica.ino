@@ -23,9 +23,9 @@ void loop(void) {
     bounce = true;
     serialMode(MODE_FONT_B);
     serialPrint("hello");
-    serialMode(MODE_FONT_B | MODE_REVERSE);
+    serialMode(MODE_REVERSE);
     serialPrint("hello");
-    serialMode(MODE_FONT_B | MODE_DOUBLEWIDTH);
+    serialMode(MODE_DOUBLEWIDTH);
     serialPrint("hello");
   }
 
