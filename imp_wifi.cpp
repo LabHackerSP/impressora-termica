@@ -1,20 +1,20 @@
 #include "imp_wifi.h"
-#include "imp_config.h"
 
 const char* host = "impressora-termica";
 ESP8266WebServer httpServer(80);
 impConfig httpConfig;
 ESP8266HTTPUpdateServer httpUpdater;
 
+bool wifi_ap_mode = false;
+
 void setupWifi() {
-  bool wifi_mode = false;
   char ip[64];
   String ssid;
   String pass;
   
   if(digitalRead(BUTTON) == LOW || !SPIFFS.exists("/wifi/sta/ssid")) {
     // AP mode
-    wifi_mode = true;
+    wifi_ap_mode = true;
     ssid = loadDefault("/wifi/ap/ssid", "impressora");
     pass = loadDefault("/wifi/ap/pass", "senhasecreta");
     
@@ -38,7 +38,7 @@ void setupWifi() {
     Serial.printf("ssid: %s\npass: %s\n", ssid.c_str(), pass.c_str());
   }
 
-  if(!wifi_mode) {
+  if(!wifi_ap_mode) {
     while(WiFi.waitForConnectResult() != WL_CONNECTED){
       WiFi.begin(ssid.c_str(), pass.c_str());
       Serial.println("WiFi STA failed, retrying.");

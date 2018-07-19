@@ -11,6 +11,9 @@
 
 #include "spiffs_utils.h"
 #include "imp_common.h"
+#include "imp_config.h"
+
+extern bool wifi_ap_mode;
 
 void setupWifi();
 void handleWifi();

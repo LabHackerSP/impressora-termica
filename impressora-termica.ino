@@ -16,6 +16,8 @@ bool bounce = false;
 
 void loop(void) {
   handleWifi();
+  // apenas OTA
+  if(wifi_ap_mode) return;
 
   if(digitalRead(BUTTON) == LOW && !bounce) {
     bounce = true;
