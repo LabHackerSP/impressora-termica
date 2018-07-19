@@ -12,6 +12,21 @@ void setup(void) {
   setupWifi();
 }
 
+bool bounce = false;
+
 void loop(void) {
   handleWifi();
+
+  if(digitalRead(BUTTON) == LOW && !bounce) {
+    bounce = true;
+    serialMode(MODE_FONT_B);
+    serialPrint("hello");
+    serialMode(MODE_FONT_B | MODE_REVERSE);
+    serialPrint("hello");
+    serialMode(MODE_FONT_B | MODE_DOUBLEWIDTH);
+    serialPrint("hello");
+  }
+
+  if(digitalRead(BUTTON) == HIGH && bounce)
+    bounce = false;
 }
