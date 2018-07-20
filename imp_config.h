@@ -4,6 +4,7 @@
 #define CONFIG_H_
 
 #include "imp_wifi.h"
+#include "imp_common.h"
 #include "spiffs_utils.h"
 
 class impConfig {
@@ -13,7 +14,8 @@ class impConfig {
   protected:
     ESP8266WebServer *ws;
     void GetSettings();
-    void SetSettings();  
+    void SetSettings();
+    void SendPrint();
 };
 
 #endif // CONFIG_H_

@@ -4,6 +4,7 @@ void impConfig::setup(ESP8266WebServer *server) {
   ws = server;
   ws->on("/settings", HTTP_GET, std::bind(&impConfig::GetSettings, this));
   ws->on("/settings", HTTP_POST, std::bind(&impConfig::SetSettings, this));
+  ws->on("/print", HTTP_POST, [this](){ ws->send(200); }, std::bind(&impConfig::SendPrint, this));
 }
 
 void impConfig::GetSettings() {
@@ -63,3 +64,34 @@ void impConfig::SetSettings() {
   
   ws->send(200, "text/plain", out);
 }
+
+//File fsUploadFile;
+
+void impConfig::SendPrint() {
+  HTTPUpload& upload = ws->upload();
+  if(upload.status == UPLOAD_FILE_START){
+    // start file upload
+    //fsUploadFile = SPIFFS.open("/print", "w");
+  } else if(upload.status == UPLOAD_FILE_WRITE){
+    impSerial.write(upload.buf, upload.currentSize+1);
+    /*if(fsUploadFile)
+      fsUploadFile.write(upload.buf, upload.currentSize);*/
+  } else if(upload.status == UPLOAD_FILE_END){
+    ws->send(200, "text/plain", "success!");
+    /*if(fsUploadFile) {
+      fsUploadFile.close();
+      ws->send(200, "text/plain", loadDefault("/print"));
+      // output file to printer
+      fsUploadFile = SPIFFS.open("/print", "r");
+
+      while(fsUploadFile.available()) {
+        impSerial.write(fsUploadFile.read());
+      }
+      
+      fsUploadFile.close();
+    } else {
+      ws->send(500, "text/plain", "500: couldn't create file");
+    }*/
+  }
+}
+

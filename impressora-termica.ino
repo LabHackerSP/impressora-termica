@@ -21,12 +21,12 @@ void loop(void) {
 
   if(digitalRead(BUTTON) == LOW && !bounce) {
     bounce = true;
-    serialMode(MODE_FONT_B);
+    /*serialMode(MODE_FONT_B);
     serialPrint("hello");
     serialMode(MODE_REVERSE);
     serialPrint("hello");
     serialMode(MODE_DOUBLEWIDTH);
-    serialPrint("hello");
+    serialPrint("hello");*/
   }
 
   if(digitalRead(BUTTON) == HIGH && bounce)

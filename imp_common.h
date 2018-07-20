@@ -18,9 +18,12 @@ const byte MODE_DOUBLEHEIGHT = 16;
 const byte MODE_DOUBLEWIDTH  = 32;
 const byte MODE_DELETELINE   = 64;
 
+extern SoftwareSerial impSerial;
+
 void commonSetup();
 
 void serialPrint(char*);
+void serialPrint(char*, bool);
 void serialMode(byte);
 
 #endif // COMMON_H_

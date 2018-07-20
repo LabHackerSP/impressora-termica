@@ -11,8 +11,10 @@ void commonSetup() {
   impSerial.write(0x40);
 }
 
-void serialPrint(char* string) {
-  impSerial.println(string);
+void serialPrint(char* s) { serialPrint(s, true); }
+void serialPrint(char* string, bool lf) {
+  impSerial.write(string);
+  if(lf) impSerial.write(0x10);
 }
 
 void serialMode(byte printMode) {
