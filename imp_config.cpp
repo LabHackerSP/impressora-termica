@@ -15,7 +15,7 @@ void impConfig::GetSettings() {
   out += "STA mode:<br>";
   out += "SSID: <input type=\"text\" name=\"sssid\" value=\"";
   out += loadDefault("/wifi/sta/ssid");
-  out += "\"><br>";\
+  out += "\"><br>";
   out += "Pass: <input type=\"text\" name=\"spass\" value=\"";
   out += loadDefault("/wifi/sta/pass");
   out += "\"><br>";
@@ -23,9 +23,14 @@ void impConfig::GetSettings() {
   out += "AP mode:<br>";
   out += "SSID: <input type=\"text\" name=\"assid\" value=\"";
   out += loadDefault("/wifi/ap/ssid");
-  out += "\"><br>";\
+  out += "\"><br>";
   out += "Pass: <input type=\"text\" name=\"apass\" value=\"";
   out += loadDefault("/wifi/ap/pass");
+  out += "\"><br>";
+
+  out += "<br>";
+  out += "Endpoint: <input type=\"text\" name=\"endpoint\" value=\"";
+  out += loadDefault("/endpoint");
   out += "\"><br>";
   
   out += "<input type=\"submit\" value=\"Submit\"></form>";
@@ -53,6 +58,9 @@ void impConfig::SetSettings() {
     } else if(ar == "apass") {
       valid = true;
       fname = "/wifi/ap/pass";
+    } else if(ar == "endpoint") {
+      valid = true;
+      fname = "/endpoint";
     }
 
     if(valid) {

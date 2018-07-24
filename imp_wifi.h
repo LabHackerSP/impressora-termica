@@ -8,6 +8,7 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <ESP8266HTTPUpdateServer.h>
+#include <ESP8266HTTPClient.h>
 
 #include "spiffs_utils.h"
 #include "imp_common.h"
