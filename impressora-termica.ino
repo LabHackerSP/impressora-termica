@@ -2,6 +2,8 @@
 #include "imp_wifi.h"
 #include "spiffs_utils.h"
 
+#define WDT_TIMEOUT 6000
+
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
@@ -33,27 +35,22 @@ void loop(void) {
       int len = http.getSize();
       
       // create buffer for read
-      uint8_t buff[128] = { 0 };
+      uint8_t buff;
 
       // get tcp stream
       WiFiClient * stream = http.getStreamPtr();
 
       // read all data from server
-      while(http.connected() && (len > 0 || len == -1)) {
-        // get available data size
-        size_t size = stream->available();
-
-        if(size) {
-          // read up to 128 byte
-          int c = stream->readBytes(buff, ((size > sizeof(buff)) ? sizeof(buff) : size));
+      while(http.connected()) {
+        while(stream->available()) {
+          // read a byte
+          int c = stream->readBytes(&buff, 1);
 
           // write it to printer
-          impSerial.write(buff, c);
-
-          if(len > 0)
-            len -= c;
+          wdt_disable();
+          impPrinter.write(buff);
+          wdt_enable(WDT_TIMEOUT);
         }
-        delay(1);
       }
     } else {
       // http fail
