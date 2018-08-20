@@ -48,7 +48,7 @@ void loop(void) {
 
           // write it to printer
           wdt_disable();
-          impPrinter.write(buff);
+          impPrinter.writeBytes(buff);
           wdt_enable(WDT_TIMEOUT);
         }
       }
